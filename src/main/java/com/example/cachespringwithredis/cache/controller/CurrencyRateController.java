@@ -33,7 +33,7 @@ public class CurrencyRateController {
     @PostMapping("/create_current_rate/{currencyRateName}")
     @Cacheable(key = "#currencyRateName", value = "CurrencyRate")
     public CurrencyRate post(@PathVariable String currencyRateName) {
-        return currencyRateRepository.save("USD");
+        return currencyRateRepository.save(currencyRateName);
     }
 
 

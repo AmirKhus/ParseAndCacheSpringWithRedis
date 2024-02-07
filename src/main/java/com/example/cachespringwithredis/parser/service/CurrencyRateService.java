@@ -19,8 +19,6 @@ import java.util.List;
 
 @Service
 @Slf4j
-//@RequiredArgsConstructor
-@PropertySource(value = "config.properties")
 public class CurrencyRateService {
     @Value("${parse.DATE_FORMAT}")
     private String DATE_FORMAT;
