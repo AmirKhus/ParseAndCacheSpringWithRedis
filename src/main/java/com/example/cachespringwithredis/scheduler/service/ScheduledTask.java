@@ -19,7 +19,7 @@ public class ScheduledTask {
     @Autowired
     CurrencyRateController currencyRateController;
 
-    @Scheduled(cron = "10 0 15 * * 1,2,3,4,5", zone = "Europe/Moscow")
+    @Scheduled(cron = "* * 17 * * 1,2,3,4,5", zone = "Europe/Moscow")
     public void schedule() {
         log.info("Start schedule for check update currency rate");
         List<String> currency = Arrays.stream(CurrencyEnum.values())

@@ -11,7 +11,6 @@ public enum CurrencyEnum {
     CNY,
     SEK,
     NZD,
-    MXN,
     SGD,
     HKD,
     NOK,

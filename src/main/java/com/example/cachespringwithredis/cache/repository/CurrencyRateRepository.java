@@ -1,17 +1,14 @@
 package com.example.cachespringwithredis.cache.repository;
 
+import com.example.cachespringwithredis.dataBase.service.CurrencyServiceIml;
 import com.example.cachespringwithredis.model.CurrencyRate;
 import com.example.cachespringwithredis.parser.service.CurrencyRateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -22,20 +19,22 @@ public class CurrencyRateRepository {
     private RedisTemplate template;
     @Autowired
     private CurrencyRateService currencyRateService;
+    @Autowired
+    private CurrencyServiceIml currencyServiceIml;
 
     public CurrencyRate save(String currencyRateName) {
         log.info("Current {} save", currencyRateName);
-        System.out.println(LocalDate.now());
         CurrencyRate currencyRate = currencyRateService.getCurrencyRate(currencyRateName,LocalDate.now());
-        System.out.println(currencyRate);
-        template.opsForHash().put(HASH_KEY, currencyRate.getName(), currencyRate);
+        currencyServiceIml.saveCurrencyRate(currencyRate);
+//        template.opsForHash().put(HASH_KEY, currencyRate.getName(), currencyRate);
         return currencyRate;
 //        return null;
     }
 
     public List<CurrencyRate> findAll() {
         log.info("Find all current");
-        return template.opsForHash().values(HASH_KEY);
+//        return template.opsForHash().values(HASH_KEY);
+        return currencyServiceIml.getAllCurrency();
     }
 
     public CurrencyRate findByCurrentName(String currentName) {
